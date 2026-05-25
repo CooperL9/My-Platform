@@ -142,11 +142,11 @@ export default function SignupPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const canCreateAccount = acceptedAgreement && signatureName.trim() !== "";
   const inputClassName =
-    "w-full rounded-[1.25rem] border border-[#ded0c5] bg-white/82 px-4 py-3 text-sm text-[#312722] shadow-[inset_0_1px_8px_rgba(66,46,36,0.05)] placeholder-[#9e8b82] outline-none transition focus:border-[#b89583] focus:bg-white focus:ring-2 focus:ring-[#e3c7b7]";
+    "w-full rounded-[1.35rem] border border-[#d8c7ba]/80 bg-[#fffaf4]/78 px-4 py-3 text-sm text-[#2e241f] shadow-[inset_0_1px_10px_rgba(66,46,36,0.045)] placeholder-[#9a877d] outline-none backdrop-blur transition focus:border-[#9caf8a] focus:bg-white/92 focus:ring-2 focus:ring-[#d7e2c8]";
   const labelClassName =
-    "mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-[#7d5d4f]";
+    "mb-2 block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#816254]";
   const legalLinkClassName =
-    "font-semibold text-[#4e6350] underline decoration-[#b8c7aa] underline-offset-4 transition hover:text-[#2f4432]";
+    "font-semibold text-[#425f45] underline decoration-[#b8c7aa] underline-offset-4 transition hover:text-[#263c2a]";
 
   const handleProfilePictureUpload = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -232,50 +232,61 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#efe4d8] px-5 py-8 text-[#312722] sm:px-6 sm:py-10">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(95,118,79,0.22)_0,transparent_24%),radial-gradient(circle_at_86%_12%,rgba(196,139,164,0.24)_0,transparent_22%),radial-gradient(circle_at_76%_88%,rgba(124,92,82,0.18)_0,transparent_24%),linear-gradient(135deg,#fffaf2_0%,#ead9cc_42%,#cdb7a7_100%)]" />
-      <div className="absolute left-8 top-16 h-36 w-36 rounded-full bg-white/30 blur-3xl" />
-      <div className="absolute bottom-10 right-8 h-44 w-44 rounded-full bg-[#d9b7a9]/30 blur-3xl" />
-      <div className="pointer-events-none absolute inset-0 opacity-[0.18] bg-[linear-gradient(90deg,rgba(88,70,54,0.12)_1px,transparent_1px),linear-gradient(rgba(88,70,54,0.10)_1px,transparent_1px)] bg-[size:42px_42px]" />
+    <main className="relative min-h-screen overflow-hidden bg-[#e7d8c9] px-4 py-6 text-[#2e241f] sm:px-6 lg:py-8">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_11%_14%,rgba(74,94,63,0.32)_0,transparent_24%),radial-gradient(circle_at_84%_12%,rgba(196,128,150,0.28)_0,transparent_22%),radial-gradient(circle_at_68%_92%,rgba(123,89,70,0.28)_0,transparent_26%),linear-gradient(135deg,#fff9ef_0%,#ead8c9_34%,#d4b7a8_70%,#a99580_100%)]" />
+      <div className="absolute -left-20 top-16 h-72 w-72 rounded-full bg-[#f7efe4]/45 blur-3xl" />
+      <div className="absolute right-0 top-10 h-80 w-80 rounded-full bg-[#d59ab0]/24 blur-3xl" />
+      <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#7b8f68]/22 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(44,33,27,0.18)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.13] bg-[linear-gradient(90deg,rgba(71,52,43,0.16)_1px,transparent_1px),linear-gradient(rgba(71,52,43,0.13)_1px,transparent_1px)] bg-[size:38px_38px]" />
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-5xl items-center justify-center">
-        <div className="grid w-full overflow-hidden rounded-[2rem] border border-white/70 bg-white/78 shadow-[0_28px_80px_rgba(72,52,42,0.18)] backdrop-blur-xl lg:grid-cols-[0.92fr_1.08fr]">
-          <section className="relative hidden overflow-hidden border-r border-white/60 bg-[#2f4432] p-8 text-white lg:flex lg:flex-col lg:justify-between">
-            <div className="absolute -right-16 top-12 h-40 w-40 rounded-full border border-white/15" />
-            <div className="absolute -bottom-12 left-10 h-36 w-36 rounded-[2rem] border border-white/15 rotate-12" />
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-6xl items-center justify-center">
+        <div className="grid w-full overflow-hidden rounded-[2.25rem] border border-white/55 bg-[#fffaf4]/50 shadow-[0_34px_100px_rgba(55,38,31,0.22)] backdrop-blur-2xl lg:grid-cols-[0.9fr_1.1fr]">
+          <section className="relative hidden min-h-[720px] overflow-hidden border-r border-white/25 bg-[#263b2b] p-9 text-white lg:flex lg:flex-col lg:justify-between">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.18)_0,transparent_22%),radial-gradient(circle_at_88%_18%,rgba(181,151,124,0.26)_0,transparent_20%),linear-gradient(145deg,#41543b_0%,#263b2b_44%,#1b291e_100%)]" />
+            <div className="absolute -right-16 top-12 h-48 w-48 rounded-full border border-white/15 bg-white/5" />
+            <div className="absolute -bottom-16 left-10 h-44 w-44 rotate-12 rounded-[2rem] border border-white/15 bg-white/5" />
+            <div className="absolute left-8 top-1/2 h-px w-28 bg-white/20" />
             <div className="relative">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-white/62">
+              <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.32em] text-white/60">
                 Greatest Invention Yet
               </p>
-              <h2 className="max-w-xs text-5xl font-semibold leading-[0.95]">
-                A softer place to become.
+              <h2 className="max-w-sm text-6xl font-semibold leading-[0.9] tracking-[-0.03em]">
+                Your private digital sanctuary.
               </h2>
-              <p className="mt-5 max-w-sm text-sm leading-7 text-white/72">
-                Journal, plan, check in, and keep the pieces of your life
-                somewhere private and beautiful.
+              <p className="mt-6 max-w-sm text-sm leading-7 text-white/72">
+                A calm room for reflections, moods, plans, memories, and the
+                quieter version of you that is becoming.
               </p>
             </div>
 
-            <div className="relative rounded-[1.5rem] border border-white/15 bg-white/10 p-4 text-sm leading-6 text-white/76 shadow-[0_18px_44px_rgba(0,0,0,0.16)]">
-              Your space starts simple. It grows with your rituals.
+            <div className="relative grid gap-3">
+              <div className="w-fit rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-medium text-white/75 shadow-[0_18px_44px_rgba(0,0,0,0.14)]">
+                private by design
+              </div>
+              <div className="rounded-[1.75rem] border border-white/15 bg-white/10 p-5 text-sm leading-6 text-white/76 shadow-[0_18px_44px_rgba(0,0,0,0.16)] backdrop-blur">
+                Start with an account. Leave with a space that feels like a
+                room of your own.
+              </div>
             </div>
           </section>
 
-          <section className="p-6 sm:p-8">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#7d5d4f]">
+          <section className="relative p-5 sm:p-8 lg:p-10">
+            <div className="pointer-events-none absolute right-6 top-6 hidden h-20 w-20 rounded-full border border-[#7b5d4c]/10 sm:block" />
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#816254]">
               Begin gently
             </p>
-            <h1 className="text-3xl font-semibold leading-tight text-[#3b2d27] sm:text-4xl">
+            <h1 className="max-w-md text-4xl font-semibold leading-[0.95] tracking-[-0.025em] text-[#352820] sm:text-5xl">
               Create your account
             </h1>
-            <p className="mt-3 max-w-md text-sm leading-6 text-[#756257]">
+            <p className="mt-4 max-w-md text-sm leading-6 text-[#69564b]">
               Start building your private space for reflection, planning, and
               becoming.
             </p>
 
-            <div className="mt-7 flex flex-col gap-4">
-              <label className="group flex cursor-pointer flex-col items-center rounded-[1.75rem] border border-dashed border-[#cdbbae] bg-[#fffaf4]/72 p-5 text-center shadow-[inset_0_1px_10px_rgba(66,46,36,0.04)] transition hover:border-[#9fb08d] hover:bg-white/82">
-                <span className="relative mb-3 flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border border-white/80 bg-[#f3e7dc] shadow-[0_16px_34px_rgba(72,52,42,0.14)] ring-4 ring-[#efe1d4]/70 transition group-hover:ring-[#dce7d2]">
+            <div className="mt-7 flex flex-col gap-3.5">
+              <label className="group flex cursor-pointer items-center gap-4 rounded-[1.75rem] border border-white/70 bg-white/42 p-4 shadow-[inset_0_1px_12px_rgba(66,46,36,0.045),0_16px_42px_rgba(70,48,38,0.08)] backdrop-blur transition hover:bg-white/58">
+                <span className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/90 bg-[#f1e3d8] shadow-[0_16px_34px_rgba(72,52,42,0.14)] ring-4 ring-[#efe1d4]/70 transition group-hover:ring-[#dce7d2]">
                   {profilePicture ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -284,16 +295,18 @@ export default function SignupPage() {
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <span className="px-4 text-xs font-semibold uppercase tracking-[0.16em] text-[#8a7468]">
+                    <span className="px-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8a7468]">
                       Add photo
                     </span>
                   )}
                 </span>
-                <span className="text-sm font-semibold text-[#4e6350]">
-                  Add a profile photo
-                </span>
-                <span className="mt-1 text-xs text-[#8a7468]">
-                  Optional, saved privately on this device.
+                <span className="text-left">
+                  <span className="block text-sm font-semibold text-[#425f45]">
+                    Add a profile photo
+                  </span>
+                  <span className="mt-1 block text-xs leading-5 text-[#7b675b]">
+                    Optional, expressive, and saved privately on this device.
+                  </span>
                 </span>
                 <input
                   type="file"
@@ -350,7 +363,7 @@ export default function SignupPage() {
               <section className="rounded-[1.5rem] border border-[#ded0c5] bg-[#fffaf4]/82 p-4 text-sm text-[#604f46] shadow-[inset_0_1px_10px_rgba(66,46,36,0.04)]">
                 <p className={labelClassName}>Terms + Privacy</p>
 
-                <label className="mb-4 flex gap-3 rounded-[1.25rem] border border-[#e4d7cc] bg-white/72 p-3">
+                <label className="mb-3 flex gap-3 rounded-[1.25rem] border border-[#e4d7cc] bg-white/58 p-3">
                   <input
                     type="checkbox"
                     checked={acceptedAgreement}
@@ -406,7 +419,7 @@ export default function SignupPage() {
                 type="button"
                 onClick={handleSignup}
                 disabled={!canCreateAccount}
-                className="mt-1 rounded-full bg-[#2f4432] py-3.5 text-center text-sm font-semibold text-white shadow-[0_16px_34px_rgba(47,68,50,0.24)] transition hover:-translate-y-0.5 hover:bg-[#253728] disabled:cursor-not-allowed disabled:bg-[#cbbdb3] disabled:text-white/80 disabled:shadow-none disabled:hover:translate-y-0"
+                className="mt-1 rounded-full bg-[linear-gradient(135deg,#2f4432_0%,#5f764f_100%)] py-3.5 text-center text-sm font-semibold text-white shadow-[0_18px_38px_rgba(47,68,50,0.26)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_48px_rgba(47,68,50,0.32)] disabled:cursor-not-allowed disabled:bg-[#cbbdb3] disabled:bg-none disabled:text-white/80 disabled:shadow-none disabled:hover:translate-y-0"
               >
                 Create account
               </button>

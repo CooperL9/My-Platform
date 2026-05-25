@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ui } from "../stylePatterns";
 
 type UserAccount = {
+  name?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -31,6 +32,20 @@ const getPrettyDate = (dateKey: string) => {
     day: "numeric",
     year: "numeric",
   });
+};
+
+const loadUsers = () => {
+  const storedUsers =
+    localStorage.getItem("users") ?? localStorage.getItem("userAccounts");
+  const users = storedUsers ? (JSON.parse(storedUsers) as UserAccount[]) : [];
+
+  return users.map((user) => ({
+    ...user,
+    name:
+      user.name ||
+      `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() ||
+      user.email,
+  }));
 };
 
 export default function SignupPage() {
@@ -66,10 +81,7 @@ export default function SignupPage() {
       return;
     }
 
-    const storedAccounts = localStorage.getItem("userAccounts");
-    const accounts: UserAccount[] = storedAccounts
-      ? JSON.parse(storedAccounts)
-      : [];
+    const accounts = loadUsers();
 
     const normalizedEmail = email.trim().toLowerCase();
     const accountExists = accounts.some(
@@ -82,6 +94,7 @@ export default function SignupPage() {
     }
 
     const newAccount = {
+      name: `${firstName.trim()} ${lastName.trim()}`,
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       email: normalizedEmail,
@@ -94,7 +107,7 @@ export default function SignupPage() {
 
     const updatedAccounts = [...accounts, newAccount];
 
-    localStorage.setItem("userAccounts", JSON.stringify(updatedAccounts));
+    localStorage.setItem("users", JSON.stringify(updatedAccounts));
     localStorage.setItem("currentLoggedInUser", JSON.stringify(newAccount));
 
     router.push("/home");

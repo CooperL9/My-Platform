@@ -6,11 +6,26 @@ import { useRouter } from "next/navigation";
 import { ui } from "../stylePatterns";
 
 type UserAccount = {
+  name?: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   birthday: string;
+};
+
+const loadUsers = () => {
+  const storedUsers =
+    localStorage.getItem("users") ?? localStorage.getItem("userAccounts");
+  const users = storedUsers ? (JSON.parse(storedUsers) as UserAccount[]) : [];
+
+  return users.map((user) => ({
+    ...user,
+    name:
+      user.name ||
+      `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() ||
+      user.email,
+  }));
 };
 
 export default function LoginPage() {
@@ -26,10 +41,7 @@ export default function LoginPage() {
       return;
     }
 
-    const storedAccounts = localStorage.getItem("userAccounts");
-    const accounts: UserAccount[] = storedAccounts
-      ? JSON.parse(storedAccounts)
-      : [];
+    const accounts = loadUsers();
 
     const matchingAccount = accounts.find(
       (account) =>
@@ -38,10 +50,11 @@ export default function LoginPage() {
     );
 
     if (!matchingAccount) {
-      setErrorMessage("We could not find an account with those details.");
+      setErrorMessage("Email or password is incorrect.");
       return;
     }
 
+    localStorage.setItem("users", JSON.stringify(accounts));
     localStorage.setItem("currentLoggedInUser", JSON.stringify(matchingAccount));
     router.push("/home");
   };

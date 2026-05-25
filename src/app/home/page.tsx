@@ -108,6 +108,15 @@ const getZodiacSign = (birthday: string) => {
 const formatMoodName = (mood: string) =>
   mood ? mood.charAt(0).toUpperCase() + mood.slice(1) : "";
 
+const getInitials = (user: UserAccount | null) => {
+  if (!user) return "GI";
+
+  const firstInitial = user.firstName?.[0] ?? "";
+  const lastInitial = user.lastName?.[0] ?? "";
+
+  return `${firstInitial}${lastInitial}`.toUpperCase() || "GI";
+};
+
 export default function HomePage() {
   const router = useRouter();
   const { activeTheme, setSelectedTheme } = useAppTheme();
@@ -208,6 +217,8 @@ export default function HomePage() {
     space?.headerIcons && space.headerIcons.length > 0
       ? space.headerIcons.slice(0, 3)
       : ["✨", "🦋", "🌙"];
+  const profilePicture = currentUser?.profilePicture;
+  const profileInitials = getInitials(currentUser);
 
   return (
     <main
@@ -264,6 +275,22 @@ export default function HomePage() {
             <p className={`mb-2 text-[10px] font-semibold uppercase tracking-[0.24em] ${labelTextClassName}`}>
               Greatest Invention Yet
             </p>
+            <div className={`mb-4 flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border shadow-[0_16px_34px_rgba(45,35,30,0.14)] ${paperClassName}`}>
+              {profilePicture ? (
+                <Image
+                  src={profilePicture}
+                  alt={`${space?.displayName || currentUser?.firstName || "Your"} profile`}
+                  width={64}
+                  height={64}
+                  unoptimized
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <span className={`text-sm font-semibold ${titleClassName}`}>
+                  {profileInitials}
+                </span>
+              )}
+            </div>
             <h1
               className={`max-w-sm text-4xl font-semibold leading-[0.92] lg:text-6xl ${titleClassName}`}
               style={{ fontFamily: featureFontFamily }}

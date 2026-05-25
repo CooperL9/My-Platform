@@ -8,6 +8,8 @@ import {
 } from "./theme";
 
 export type UserAccount = {
+  name?: string;
+  profilePicture?: string;
   firstName: string;
   lastName: string;
   email: string;

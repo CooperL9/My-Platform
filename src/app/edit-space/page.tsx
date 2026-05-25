@@ -100,6 +100,15 @@ const formatTaglineInput = (value: string) => {
     .join("\n");
 };
 
+const getInitials = (user: UserAccount | null) => {
+  if (!user) return "GI";
+
+  const firstInitial = user.firstName?.[0] ?? "";
+  const lastInitial = user.lastName?.[0] ?? "";
+
+  return `${firstInitial}${lastInitial}`.toUpperCase() || "GI";
+};
+
 export default function EditSpacePage() {
   const router = useRouter();
   const { setSelectedTheme } = useAppTheme();
@@ -213,6 +222,8 @@ export default function EditSpacePage() {
   const previewFontFamily = space
     ? fontFamilies[space.fontVibe] ?? fontFamilies.Inter
     : fontFamilies.Inter;
+  const profilePicture = currentUser?.profilePicture;
+  const profileInitials = getInitials(currentUser);
 
   return (
     <main
@@ -295,6 +306,30 @@ export default function EditSpacePage() {
               <p className={`mb-4 text-xs font-semibold uppercase tracking-wide ${pageTheme.accent}`}>
                 Profile
               </p>
+              <div className="mb-5 flex items-center gap-4">
+                <div className={`flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border shadow-[0_16px_34px_rgba(45,35,30,0.14)] ${paperClassName}`}>
+                  {profilePicture ? (
+                    <Image
+                      src={profilePicture}
+                      alt={`${space.displayName || "Your"} profile`}
+                      width={64}
+                      height={64}
+                      unoptimized
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className={`text-sm font-semibold ${pageTheme.accent}`}>
+                      {profileInitials}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">Profile photo</p>
+                  <p className={`mt-1 text-xs leading-5 ${pageTheme.mutedText}`}>
+                    Saved from signup for now. Photo editing can come later.
+                  </p>
+                </div>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="text-sm font-medium">
                   Display name

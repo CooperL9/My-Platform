@@ -40,7 +40,7 @@ const compressProfileImage = (file: File) => {
     const image = document.createElement("img");
 
     image.onload = () => {
-      const maxSize = 360;
+      const maxSize = 320;
       const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
       const width = Math.round(image.width * scale);
       const height = Math.round(image.height * scale);
@@ -57,7 +57,7 @@ const compressProfileImage = (file: File) => {
       context.fillStyle = "#ffffff";
       context.fillRect(0, 0, width, height);
       context.drawImage(image, 0, 0, width, height);
-      resolve(canvas.toDataURL("image/jpeg", 0.72));
+      resolve(canvas.toDataURL("image/jpeg", 0.68));
     };
 
     image.onerror = () => reject(new Error("This photo could not be loaded."));
@@ -110,6 +110,11 @@ export default function SignupPage() {
     const file = event.target.files?.[0];
 
     if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setErrorMessage("Please choose an image file for your profile photo.");
+      event.target.value = "";
+      return;
+    }
 
     compressProfileImage(file)
       .then((compressedImage) => {
@@ -169,8 +174,15 @@ export default function SignupPage() {
 
     const updatedAccounts = [...accounts, newAccount];
 
-    localStorage.setItem("users", JSON.stringify(updatedAccounts));
-    localStorage.setItem("currentLoggedInUser", JSON.stringify(newAccount));
+    try {
+      localStorage.setItem("users", JSON.stringify(updatedAccounts));
+      localStorage.setItem("currentLoggedInUser", JSON.stringify(newAccount));
+    } catch {
+      setErrorMessage(
+        "Your profile photo is too large to save. Please try a smaller image."
+      );
+      return;
+    }
 
     router.push("/home");
   };

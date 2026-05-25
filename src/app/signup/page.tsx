@@ -17,6 +17,11 @@ type UserAccount = {
   agreementDate: string;
 };
 
+type StoredUserAccount = Partial<UserAccount> & {
+  email?: string;
+  password?: string;
+};
+
 const getTodayKey = () => {
   const today = new Date();
   const year = today.getFullYear();
@@ -69,18 +74,57 @@ const compressProfileImage = (file: File) => {
   });
 };
 
-const loadUsers = () => {
-  const storedUsers =
-    localStorage.getItem("users") ?? localStorage.getItem("userAccounts");
-  const users = storedUsers ? (JSON.parse(storedUsers) as UserAccount[]) : [];
+const parseStoredUsers = (storedUsers: string | null) => {
+  if (!storedUsers) return [];
 
-  return users.map((user) => ({
-    ...user,
-    name:
-      user.name ||
-      `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() ||
-      user.email,
-  }));
+  try {
+    const parsedUsers = JSON.parse(storedUsers) as
+      | StoredUserAccount
+      | StoredUserAccount[];
+
+    return Array.isArray(parsedUsers) ? parsedUsers : [parsedUsers];
+  } catch {
+    return [];
+  }
+};
+
+const normalizeUser = (user: StoredUserAccount): UserAccount | null => {
+  const email = user.email?.trim().toLowerCase();
+  const password = user.password ?? "";
+
+  if (!email || !password) return null;
+
+  const firstName = user.firstName ?? "";
+  const lastName = user.lastName ?? "";
+
+  return {
+    name: user.name || `${firstName} ${lastName}`.trim() || email,
+    profilePicture: user.profilePicture ?? "",
+    firstName,
+    lastName,
+    email,
+    password,
+    birthday: user.birthday ?? "",
+    agreedToTerms: Boolean(user.agreedToTerms),
+    signatureName: user.signatureName ?? "",
+    agreementDate: user.agreementDate ?? "",
+  };
+};
+
+const loadUsers = () => {
+  const storedUsers = parseStoredUsers(localStorage.getItem("users"));
+  const legacyUsers = parseStoredUsers(localStorage.getItem("userAccounts"));
+  const usersByEmail = new Map<string, UserAccount>();
+
+  [...legacyUsers, ...storedUsers].forEach((user) => {
+    const normalizedUser = normalizeUser(user);
+
+    if (normalizedUser) {
+      usersByEmail.set(normalizedUser.email, normalizedUser);
+    }
+  });
+
+  return Array.from(usersByEmail.values());
 };
 
 export default function SignupPage() {
